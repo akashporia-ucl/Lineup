@@ -1,0 +1,56 @@
+/* Global Variables */
+:root {
+    --black-a2: #121212; /* Dark background */
+    --gray-light: #f8f8f8; /* Light text for heading */
+    --gray-dim: rgba(255, 255, 255, 0.7); /* Light gray text for paragraphs */
+    --radius-3: 8px; /* Border radius for rounded corners */
+}
+
+/* Ensure the body and html cover full height */
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Box Container */
+.box-container {
+    background: var(--black-a2);
+    border-radius: var(--radius-3);
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Soft shadow */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the box-container takes full height of the viewport */
+    justify-content: space-between; /* Space out elements vertically */
+}
+
+/* Container for content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    color: white;
+    flex-grow: 1; /* Allow the container to grow and take available space */
+}
+
+/* Heading */
+.heading {
+    color: var(--gray-light);
+    margin-bottom: 1rem;
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+/* Paragraph Text */
+.paragraph-text {
+    color: var(--gray-dim);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    font-family: "Arial", sans-serif;
+}
+
+/* Card Section */
+.cards {
+    margin-bottom: 2rem;
+    flex-grow: 1; /* Allow card section to grow */
+}
