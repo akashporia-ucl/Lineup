@@ -7,10 +7,12 @@ import "./AddToDo.css";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
 
 const AddToDo = ({ toDoList, setToDoList }) => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [error, setError] = useState(false);
 
     const [showBackdrop, setShowBackdrop] = useState(false); // Controls Backdrop
     const [anchorEl, setAnchorEl] = useState(null); // Controls Popover
@@ -57,14 +59,24 @@ const AddToDo = ({ toDoList, setToDoList }) => {
             setToDoList([...toDoList, item]);
             setTitle("");
             setDescription("");
+            setError(false);
             handleClose(); // Close popover and backdrop after submission
         } catch (error) {
             console.error("Error occurred while adding to-do: ", error);
+            setError(true);
         }
     };
 
     const open = Boolean(anchorEl); // Popover open state
     const id = open ? "simple-popover" : undefined;
+
+    if (error) {
+        return (
+            <Alert variant="filled" severity="error">
+                Some error occurred while adding the to-do. Please try again.
+            </Alert>
+        );
+    }
 
     return (
         <div>
