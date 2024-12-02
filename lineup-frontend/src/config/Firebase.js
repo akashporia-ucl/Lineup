@@ -10,8 +10,6 @@ const messagingSenderId = process.env.REACT_APP_MESSAGING_SENDER_ID;
 const appId = process.env.REACT_APP_APP_ID;
 const measurementId = process.env.REACT_APP_MEASUREMENT_ID;
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: apiKey,
     authDomain: authDomain,

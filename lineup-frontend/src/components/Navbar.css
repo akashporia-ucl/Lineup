@@ -1,0 +1,16 @@
+.navBar {
+    border-radius: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navBar.lightNav {
+    background-color: #5e17eb;
+    color: white;
+}
+
+.navBar.darkNav {
+    background-color: #333;
+    color: white;
+    border: 1px solid white;
+}

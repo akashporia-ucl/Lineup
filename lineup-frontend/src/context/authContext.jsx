@@ -13,7 +13,8 @@ export const AuthProvider = ({ children }) => {
     const [userLoggedIn, setUserLoggedIn] = React.useState(false);
     const [loading, setLoading] = React.useState(true);
     const [emailUser, setEmailUser] = React.useState(false);
-    const [googleUser, setGoogleUser] = React.useState(false);
+    //const [googleUser, setGoogleUser] = React.useState(false);
+    const [userId, setUserId] = React.useState(null);
 
     const initialiseUser = async (user) => {
         if (user) {
@@ -23,6 +24,8 @@ export const AuthProvider = ({ children }) => {
             );
             setEmailUser(emailUser);
             setUserLoggedIn(true);
+            setUserId(user.uid);
+            console.log("User logged in: ", user.uid);
         } else {
             setCurrentUser(null);
             setUserLoggedIn(false);
@@ -38,9 +41,10 @@ export const AuthProvider = ({ children }) => {
     const value = {
         userLoggedIn,
         emailUser,
-        googleUser,
+        //googleUser,
         currentUser,
-        setCurrentUser,
+        //setCurrentUser,
+        userId,
     };
 
     return (

@@ -1,11 +1,22 @@
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
 
-const API_URL = "http://localhost:8080/api/v1/";
+const API_URL = "http://localhost:8080/api/v1";
+
+const useUserId = () => {
+    const { userId } = useAuth();
+    return userId;
+};
 
 class LineupService {
+    constructor(userId) {
+        this.currentUser = userId;
+    }
+
     listToDo = async () => {
         try {
-            const response = await axios.get(`${API_URL}`);
+            const response = await axios.get(`${API_URL}/${this.currentUser}`);
             return response.data;
         } catch (error) {
             console.error("Error occured while fetching to-do list: ", error);
@@ -15,13 +26,17 @@ class LineupService {
 
     addToDo = async (todo) => {
         try {
-            const response = await axios.post(`${API_URL}`, null, {
-                params: {
-                    id: todo.id,
-                    title: todo.title,
-                    description: todo.description,
-                },
-            });
+            const response = await axios.post(
+                `${API_URL}/${this.currentUser}`,
+                null,
+                {
+                    params: {
+                        toDoId: todo.id,
+                        title: todo.title,
+                        description: todo.description,
+                    },
+                }
+            );
             return response.data;
         } catch (error) {
             console.error("Error occured while adding to-do: ", error);
@@ -31,8 +46,10 @@ class LineupService {
 
     deleteToDo = async (id) => {
         try {
-            console.log(`${API_URL}/${id}`);
-            const response = await axios.delete(`${API_URL}${id}`);
+            console.log(`${API_URL}/${this.currentUser}/${id}`);
+            const response = await axios.delete(
+                `${API_URL}/${this.currentUser}/${id}`
+            );
             return response.data;
         } catch (error) {
             console.error("Error occured while deleting to-do: ", error);
@@ -42,7 +59,10 @@ class LineupService {
 
     updateToDo = async (todo) => {
         try {
-            const response = await axios.put(`${API_URL}/${todo.id}`, todo);
+            const response = await axios.put(
+                `${API_URL}$/{this.currentUser}/${todo.id}`,
+                todo
+            );
             return response.data;
         } catch (error) {
             console.error("Error occured while updating to-do: ", error);
@@ -51,6 +71,17 @@ class LineupService {
     };
 }
 
-const lineupService = new LineupService();
+const useLineupService = () => {
+    const userId = useUserId();
+    const [lineupService, setLineupService] = useState(null);
 
-export default lineupService;
+    useEffect(() => {
+        if (userId) {
+            setLineupService(new LineupService(userId));
+        }
+    }, [userId]);
+
+    return lineupService;
+};
+
+export default useLineupService;

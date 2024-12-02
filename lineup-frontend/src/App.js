@@ -3,19 +3,38 @@ import Landing from "./components/Landing";
 import React from "react";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Home from "./components/Home";
+import Paper from "@mui/material/Paper";
+import { ThemeProvider } from "./context/ThemeContext";
+import { useTheme } from "./context/ThemeContext";
+import Navbar from "./components/Navbar";
 
 function App() {
     const { userLoggedIn } = useAuth();
-    console.log(userLoggedIn);
-    const t = false;
-    console.log(t);
-    return <div className="App">{userLoggedIn ? <Home /> : <Landing />}</div>;
+    const { theme } = useTheme();
+    return (
+        <div className="App">
+            <Paper
+                key={theme}
+                className={
+                    theme === "light"
+                        ? "lightPaper welcome"
+                        : "darkPaper welcome"
+                }
+                elevation={3}
+            >
+                <Navbar />
+                {userLoggedIn ? <Home /> : <Landing />}
+            </Paper>
+        </div>
+    );
 }
 
 export default function AppWrapper() {
     return (
-        <AuthProvider>
-            <App />
-        </AuthProvider>
+        <ThemeProvider>
+            <AuthProvider>
+                <App />
+            </AuthProvider>
+        </ThemeProvider>
     );
 }

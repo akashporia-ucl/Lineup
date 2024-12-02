@@ -3,8 +3,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { signInUser, signInUserWithGoogle } from "../service/auth";
-import { auth } from "../config/Firebase";
+import { signInUser } from "../service/auth";
+import Container from "@mui/material/Container";
 
 const Login = ({ handleAuthModeChange }) => {
     const [email, setEmail] = useState("");
@@ -50,12 +50,12 @@ const Login = ({ handleAuthModeChange }) => {
         if (!isSigningIn) {
             setIsSigningIn(true);
             const response = await signInUser(email, password);
-            console.log("Sign in response: ", response.user.uid);
+            console.log("Sign in response: ", response);
         }
     };
 
     return (
-        <div>
+        <Container>
             <Typography variant="h4" style={{ color: "black" }}>
                 Welcome back to LineUp!
             </Typography>
@@ -165,7 +165,7 @@ const Login = ({ handleAuthModeChange }) => {
             <Button onClick={handleAuthModeChange}>
                 New user? Signup here
             </Button>
-        </div>
+        </Container>
     );
 };
 

@@ -8,8 +8,11 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
+import useLineupService from "../service/lineupService";
 
 const AddToDo = ({ toDoList, setToDoList }) => {
+    const lineupService = useLineupService();
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [error, setError] = useState(false);
@@ -110,10 +113,9 @@ const AddToDo = ({ toDoList, setToDoList }) => {
                 <Popover
                     id={id}
                     open={open}
-                    anchorEl={null}
                     onClose={handleClose}
                     anchorOrigin={{
-                        vertical: "center",
+                        vertical: "center", // Do not pass anchorEl here
                         horizontal: "center",
                     }}
                     transformOrigin={{
@@ -122,6 +124,12 @@ const AddToDo = ({ toDoList, setToDoList }) => {
                     }}
                     PaperProps={{
                         className: "todo-popover",
+                        style: {
+                            position: "fixed",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                        }, // Centering the popover
                     }}
                     onClick={(e) => e.stopPropagation()} // Prevent event from propagating to Backdrop
                 >
@@ -134,7 +142,6 @@ const AddToDo = ({ toDoList, setToDoList }) => {
                             Add your to-do
                         </Typography>
                         <Box
-                            component="form"
                             sx={{
                                 "& .MuiTextField-root": { m: 1, width: "25ch" },
                             }}

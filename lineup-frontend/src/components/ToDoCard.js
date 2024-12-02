@@ -1,4 +1,3 @@
-import lineupService from "../service/lineupService";
 import React, { useEffect, useState } from "react";
 import DeleteToDoButton from "./DeleteToDoButton";
 import Card from "@mui/material/Card";
@@ -6,8 +5,12 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
+import useLineupService from "../service/lineupService";
+import Skeleton from "@mui/material/Skeleton";
 
 const ToDoCard = ({ toDoList, setToDoList }) => {
+    const lineupService = useLineupService();
+
     const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
     // Track checkbox states for each item
@@ -25,8 +28,10 @@ const ToDoCard = ({ toDoList, setToDoList }) => {
     };
 
     useEffect(() => {
-        data();
-    }, []);
+        if (lineupService) {
+            data();
+        }
+    }, [lineupService]);
 
     const callHandleDeleteAPI = async (id) => {
         try {
@@ -45,6 +50,11 @@ const ToDoCard = ({ toDoList, setToDoList }) => {
             [itemId]: event.target.checked,
         });
     };
+
+    if (!lineupService) {
+        // Fallback in case lineupService is not ready
+        return <Skeleton variant="rectangular" width={210} height={60} />;
+    }
 
     return (
         <Box>
