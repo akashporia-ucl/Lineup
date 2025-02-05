@@ -1,0 +1,43 @@
+/* Light Theme Card Styling */
+.lightCard {
+    border: 2px solid #5e17eb; /* Light theme border color */
+    color: #5e17eb; /* Heading color */
+    background-color: #fff; /* Background color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px; /* Internal padding */
+}
+
+/* Dark Theme Card Styling */
+.darkCard {
+    border: 2px solid #fff; /* Dark theme border color */
+    color: #fff; /* Heading color */
+    background-color: #000; /* Background color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px; /* Internal padding */
+}
+
+/* Typography Styles */
+.lightCard .cardHeading {
+    color: #5e17eb; /* Heading color for light theme */
+}
+
+.lightCard .cardSubheading {
+    color: #ba90ff; /* Subheading color for light theme */
+}
+
+.darkCard .cardHeading {
+    color: #fff; /* Heading color for dark theme */
+}
+
+.darkCard .cardSubheading {
+    color: #737373; /* Subheading color for dark theme */
+}
+
+/* Icon Styling */
+.lightCard .cardIcon {
+    color: #5e17eb; /* Icon color for light theme */
+}
+
+.darkCard .cardIcon {
+    color: #fff; /* Icon color for dark theme */
+}

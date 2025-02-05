@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import lineupService from "../service/lineupService";
 import Popover from "@mui/material/Popover";
 import Backdrop from "@mui/material/Backdrop";
 import Button from "@mui/material/Button";
@@ -9,10 +8,12 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
 import useLineupService from "../service/lineupService";
+import { useTheme } from "../context/ThemeContext";
+import { useAuth } from "../context/AuthContext";
 
 const AddToDo = ({ toDoList, setToDoList }) => {
     const lineupService = useLineupService();
-
+    const { theme } = useTheme();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [error, setError] = useState(false);
@@ -73,6 +74,9 @@ const AddToDo = ({ toDoList, setToDoList }) => {
     const open = Boolean(anchorEl); // Popover open state
     const id = open ? "simple-popover" : undefined;
 
+    const { emailId, emailUser } = useAuth();
+    console.log("Email user: ", emailId);
+
     if (error) {
         return (
             <Alert variant="filled" severity="error">
@@ -82,9 +86,15 @@ const AddToDo = ({ toDoList, setToDoList }) => {
     }
 
     return (
-        <div>
+        <div className={theme === "light" ? "lightAddTodo" : "darkAddToDo"}>
             {/* Button to open Backdrop and Popover */}
+            {emailUser && (
+                <Typography variant="h6" gutterBottom>
+                    Hello {emailId}! Add your to-dos here.
+                </Typography>
+            )}
             <Button
+                id="add-todo-button"
                 variant="outlined"
                 onClick={handleOpen}
                 className="add-todo-button"
@@ -94,6 +104,7 @@ const AddToDo = ({ toDoList, setToDoList }) => {
                     borderColor: "#fff",
                     fontWeight: "bold",
                     marginBottom: "1rem",
+                    padding: "0.5rem 1rem",
                 }}
             >
                 Add a to-do

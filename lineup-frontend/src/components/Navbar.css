@@ -1,16 +1,54 @@
+/* Navbar Styling */
 .navBar {
-    border-radius: 10px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between left and right sections */
+    align-items: center; /* Vertically center items */
+    height: 60px; /* Fixed height for the navbar */
+    padding: 0 20px; /* Horizontal padding */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
 }
 
+/* Light mode navbar */
 .navBar.lightNav {
-    background-color: #5e17eb;
-    color: white;
+    background-color: #5e17eb; /* Purple background */
+    color: white; /* White text */
 }
 
+/* Dark mode navbar */
 .navBar.darkNav {
-    background-color: #333;
-    color: white;
-    border: 1px solid white;
+    background-color: #333; /* Dark gray background */
+    color: white; /* White text */
+    border: 1px solid white; /* White border for better contrast */
+}
+
+/* Left Section: Logo and Lineup */
+.navBar .navLeft {
+    display: flex; /* Flex layout for left section */
+    align-items: center; /* Vertically center items */
+    gap: 10px; /* Space between items */
+}
+
+/* Right Section: Signup and Theme Button */
+.navBar .navRight {
+    display: flex; /* Flex layout for right section */
+    align-items: center; /* Vertically center items */
+    gap: 10px; /* Space between items */
+}
+
+/* Modal Box Styling for Light Mode */
+.lightModalBox {
+    border: 2px solid #5e17eb; /* Purple border */
+    background-color: #fff; /* White background */
+    border-radius: 10px; /* Rounded corners */
+    color: #5e17eb; /* Purple text */
+}
+
+/* Modal Box Styling for Dark Mode */
+.darkModalBox {
+    border: 2px solid #fff; /* White border */
+    background-color: #000; /* Black background */
+    border-radius: 10px; /* Rounded corners */
+    color: #fff; /* White text */
 }

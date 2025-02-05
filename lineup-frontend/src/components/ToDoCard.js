@@ -7,14 +7,23 @@ import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import useLineupService from "../service/lineupService";
 import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
+import { useTheme } from "../context/ThemeContext";
+import "./ToDoCard.css";
 
 const ToDoCard = ({ toDoList, setToDoList }) => {
     const lineupService = useLineupService();
 
     const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
+    const { theme } = useTheme();
+
     // Track checkbox states for each item
-    const [checkedItems, setCheckedItems] = useState({});
+    const [checkedItems, setCheckedItems] = useState(() => {
+        // Retrieve the initial state from localStorage
+        const savedState = localStorage.getItem("checkedItems");
+        return savedState ? JSON.parse(savedState) : {};
+    });
 
     const data = async () => {
         try {
@@ -45,10 +54,15 @@ const ToDoCard = ({ toDoList, setToDoList }) => {
 
     const handleCheckboxChange = (event, itemId) => {
         console.log("Checkbox checked: ", event.target.checked);
-        setCheckedItems({
+        const updatedCheckedItems = {
             ...checkedItems,
             [itemId]: event.target.checked,
-        });
+        };
+        setCheckedItems(updatedCheckedItems);
+        localStorage.setItem(
+            "checkedItems",
+            JSON.stringify(updatedCheckedItems)
+        );
     };
 
     if (!lineupService) {
@@ -57,13 +71,13 @@ const ToDoCard = ({ toDoList, setToDoList }) => {
     }
 
     return (
-        <Box>
+        <Stack spacing={1}>
             {toDoList.map((item) => (
                 <Card
+                    className={theme === "light" ? "lightCard" : "darkCard"}
                     key={item.id}
                     style={{
-                        marginBottom: "10px",
-                        maxHeight: "130px",
+                        maxHeight: "100px",
                         display: "flex",
                         flexDirection: "row", // Align the title/description and checkbox/delete horizontally
                         justifyContent: "space-between",
@@ -81,6 +95,7 @@ const ToDoCard = ({ toDoList, setToDoList }) => {
                             <Typography
                                 variant="h5"
                                 component="div"
+                                className="cardHeading"
                                 style={{
                                     textDecoration: checkedItems[item.id]
                                         ? "line-through"
@@ -91,7 +106,7 @@ const ToDoCard = ({ toDoList, setToDoList }) => {
                             </Typography>
                             <Typography
                                 variant="body2"
-                                color="text.secondary"
+                                className="cardSubheading"
                                 style={{
                                     textDecoration: checkedItems[item.id]
                                         ? "line-through"
@@ -120,17 +135,16 @@ const ToDoCard = ({ toDoList, setToDoList }) => {
                             onChange={(event) =>
                                 handleCheckboxChange(event, item.id)
                             }
-                            style={{ color: "#000" }}
+                            className="cardIcon"
                         />
                         <DeleteToDoButton
-                            style={{ color: "#000" }}
                             callHandleDeleteAPI={callHandleDeleteAPI}
                             id={item.id}
                         />
                     </Box>
                 </Card>
             ))}
-        </Box>
+        </Stack>
     );
 };
 

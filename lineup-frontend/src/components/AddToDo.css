@@ -1,0 +1,11 @@
+.lightAddTodo #add-todo-button {
+    background-color: #5e17eb;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.darkAddTodo #add-todo-button {
+    background-color: #fff;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}

@@ -7,6 +7,7 @@ import Paper from "@mui/material/Paper";
 import { ThemeProvider } from "./context/ThemeContext";
 import { useTheme } from "./context/ThemeContext";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
     const { userLoggedIn } = useAuth();
@@ -20,10 +21,13 @@ function App() {
                         ? "lightPaper welcome"
                         : "darkPaper welcome"
                 }
-                elevation={3}
+                elevation={4}
             >
                 <Navbar />
-                {userLoggedIn ? <Home /> : <Landing />}
+                <div className="content">
+                    {userLoggedIn ? <Home /> : <Landing />}
+                </div>
+                <Footer />
             </Paper>
         </div>
     );

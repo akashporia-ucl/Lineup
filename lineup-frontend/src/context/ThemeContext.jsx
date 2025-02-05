@@ -27,6 +27,8 @@ export const ThemeProvider = ({ children }) => {
     // Save the theme preference to localStorage whenever theme changes
     useEffect(() => {
         localStorage.setItem("theme", theme);
+        document.body.style.backgroundColor =
+            theme === "light" ? "#9865fe" : "#000";
     }, [theme]);
 
     return (

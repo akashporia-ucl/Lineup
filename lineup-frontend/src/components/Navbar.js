@@ -87,7 +87,23 @@ const Navbar = () => {
                                 Sign Up
                             </Button>
                             <Modal open={openModal} onClose={handleModelClose}>
-                                <AuthUser />
+                                <Box
+                                    className={
+                                        theme === "light"
+                                            ? "lightModalBox"
+                                            : "darkModalBox"
+                                    }
+                                    sx={{
+                                        position: "absolute",
+                                        top: "50%",
+                                        left: "50%",
+                                        transform: "translate(-50%, -50%)",
+                                        width: 400,
+                                        p: 4,
+                                    }}
+                                >
+                                    <AuthUser />
+                                </Box>
                             </Modal>
                         </>
                     )}

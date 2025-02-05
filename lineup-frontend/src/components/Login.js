@@ -5,8 +5,10 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { signInUser } from "../service/auth";
 import Container from "@mui/material/Container";
+import { useTheme } from "../context/ThemeContext";
 
 const Login = ({ handleAuthModeChange }) => {
+    const { theme } = useTheme();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [formErrors, setFormErrors] = useState({
@@ -18,33 +20,28 @@ const Login = ({ handleAuthModeChange }) => {
     const validateForm = () => {
         const errors = { email: false, password: false };
 
-        // Check if email is empty or doesn't contain '@'
         if (!email) {
             errors.email = "Email is required";
         } else if (!email.includes("@")) {
             errors.email = "Email must contain '@'";
         }
 
-        // Check if password is empty
         if (!password) {
             errors.password = "Password is required";
         }
 
         setFormErrors(errors);
 
-        // Return true if no errors, false otherwise
         return !errors.email && !errors.password;
     };
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        // Validate the form
         if (!validateForm()) {
-            return; // Prevent login submission if there are validation errors
+            return;
         }
 
-        // Proceed with login (for now just log the data)
         console.log("Logging in with", email, password);
 
         if (!isSigningIn) {
@@ -56,115 +53,180 @@ const Login = ({ handleAuthModeChange }) => {
 
     return (
         <Container>
-            <Typography variant="h4" style={{ color: "black" }}>
-                Welcome back to LineUp!
-            </Typography>
-            <form onSubmit={handleLogin}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    minHeight: "50vh",
+                    textAlign: "center",
+                    padding: 2,
+                }}
+            >
+                <Typography
+                    variant="h4"
+                    style={{
+                        color: theme === "light" ? "#5e17eb" : "#fff",
+                        textAlign: "center",
+                        marginBottom: "20px",
+                    }}
+                >
+                    Login to LineUp!
+                </Typography>
+                <form onSubmit={handleLogin}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            width: "100%",
+                        }}
+                    >
+                        <TextField
+                            fullWidth
+                            required
+                            label="Email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
+                            error={!!formErrors.email}
+                            helperText={formErrors.email || " "}
+                            sx={{
+                                width: "300px",
+                                "& .MuiOutlinedInput-root": {
+                                    "& fieldset": {
+                                        borderColor:
+                                            theme === "light"
+                                                ? "#5e17eb"
+                                                : "#fff",
+                                    },
+                                    "&:hover fieldset": {
+                                        borderColor:
+                                            theme === "light"
+                                                ? "#5e17eb"
+                                                : "#fff",
+                                    },
+                                    "&.Mui-focused fieldset": {
+                                        borderColor:
+                                            theme === "light"
+                                                ? "#5e17eb"
+                                                : "#fff",
+                                    },
+                                    "& input": {
+                                        color:
+                                            theme === "light"
+                                                ? "#5e17eb"
+                                                : "#fff",
+                                    },
+                                },
+                                "& .MuiInputLabel-root": {
+                                    color:
+                                        theme === "light" ? "#5e17eb" : "#fff", // Matches the border color
+                                },
+                                "& .MuiInputLabel-root.Mui-focused": {
+                                    color:
+                                        theme === "light" ? "#5e17eb" : "#fff", // Keep label color the same when focused
+                                },
+                            }}
+                        />
+
+                        <TextField
+                            fullWidth
+                            required
+                            label="Password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter your password"
+                            error={!!formErrors.password}
+                            helperText={formErrors.password || " "}
+                            sx={{
+                                width: "300px",
+                                "& .MuiOutlinedInput-root": {
+                                    "& fieldset": {
+                                        borderColor:
+                                            theme === "light"
+                                                ? "#5e17eb"
+                                                : "#fff",
+                                    },
+                                    "&:hover fieldset": {
+                                        borderColor:
+                                            theme === "light"
+                                                ? "#5e17eb"
+                                                : "#fff",
+                                    },
+                                    "&.Mui-focused fieldset": {
+                                        borderColor:
+                                            theme === "light"
+                                                ? "#5e17eb"
+                                                : "#fff",
+                                    },
+                                    "& input": {
+                                        color:
+                                            theme === "light"
+                                                ? "#5e17eb"
+                                                : "#fff",
+                                    },
+                                },
+                                "& .MuiInputLabel-root": {
+                                    color:
+                                        theme === "light" ? "#5e17eb" : "#fff", // Matches the border color
+                                },
+                                "& .MuiInputLabel-root.Mui-focused": {
+                                    color:
+                                        theme === "light" ? "#5e17eb" : "#fff", // Keep label color the same when focused
+                                },
+                            }}
+                        />
+                    </Box>
+
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: "20px",
+                        }}
+                    >
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            size="large"
+                            style={{
+                                backgroundColor:
+                                    theme === "light" ? "#5e17eb" : "#000",
+                                fontWeight: "bold",
+                                color: "#fff",
+                                border: `2px solid ${
+                                    theme === "light" ? "#5e17eb" : "#fff"
+                                }`,
+                            }}
+                        >
+                            Login
+                        </Button>
+                    </Box>
+                </form>
+
                 <Box
                     sx={{
-                        "& .MuiTextField-root": { m: 1, width: "25ch" },
+                        display: "flex",
+                        justifyContent: "center",
+                        marginTop: "16px",
                     }}
-                    noValidate
-                    autoComplete="off"
                 >
-                    {/* Email Field */}
-                    <TextField
-                        required
-                        label="Email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email"
-                        error={!!formErrors.email} // Check if there is an error for email
-                        helperText={formErrors.email || ""} // Display error message
-                        InputLabelProps={{
-                            style: {
-                                color: "black", // Always black, even when focused or empty
-                            },
+                    <Button
+                        onClick={handleAuthModeChange}
+                        style={{
+                            color: theme === "light" ? "#5e17eb" : "#fff",
+                            fontWeight: "bold",
                         }}
-                        InputProps={{
-                            style: {
-                                color: "black", // Always black text color
-                            },
-                        }}
-                        sx={{
-                            "& .MuiOutlinedInput-root": {
-                                "& fieldset": {
-                                    borderColor: "black", // Set border color to black
-                                },
-                                "&:hover fieldset": {
-                                    borderColor: "black", // Keep border black on hover
-                                },
-                                "&.Mui-focused fieldset": {
-                                    borderColor: "black", // Keep border black when focused
-                                },
-                            },
-                            // Add red color for error message
-                            "& .MuiFormHelperText-root": {
-                                color: "red", // Red color for helper text (error message)
-                            },
-                        }}
-                    />
-
-                    {/* Password Field */}
-                    <TextField
-                        required
-                        label="Password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Enter your password"
-                        error={!!formErrors.password} // Check if there is an error for password
-                        helperText={formErrors.password || ""} // Display error message
-                        InputLabelProps={{
-                            style: {
-                                color: "black", // Always black, even when focused or empty
-                            },
-                        }}
-                        InputProps={{
-                            style: {
-                                color: "black", // Always black text color
-                            },
-                        }}
-                        sx={{
-                            "& .MuiOutlinedInput-root": {
-                                "& fieldset": {
-                                    borderColor: "black", // Set border color to black
-                                },
-                                "&:hover fieldset": {
-                                    borderColor: "black", // Keep border black on hover
-                                },
-                                "&.Mui-focused fieldset": {
-                                    borderColor: "black", // Keep border black when focused
-                                },
-                            },
-                            // Add red color for error message
-                            "& .MuiFormHelperText-root": {
-                                color: "red", // Red color for helper text (error message)
-                            },
-                        }}
-                    />
+                    >
+                        New user? Sign-up here
+                    </Button>
                 </Box>
-
-                {/* Login Button */}
-                <Button
-                    type="submit"
-                    variant="contained"
-                    size="large"
-                    style={{
-                        color: "#fff",
-                        borderColor: "#000",
-                        fontWeight: "bold",
-                        marginTop: "5px",
-                        backgroundColor: "#000",
-                    }}
-                >
-                    Login
-                </Button>
-            </form>
-            <Button onClick={handleAuthModeChange}>
-                New user? Signup here
-            </Button>
+            </Box>
         </Container>
     );
 };

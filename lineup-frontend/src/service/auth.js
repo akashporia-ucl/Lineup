@@ -15,7 +15,7 @@ export const createUser = async (email, password) => {
         );
         return userCredential;
     } catch (error) {
-        return error;
+        throw error;
     }
 };
 
@@ -28,7 +28,7 @@ export const signInUser = async (email, password) => {
         );
         return userCredential;
     } catch (error) {
-        return error;
+        throw error;
     }
 };
 
@@ -38,7 +38,7 @@ export const signInUserWithGoogle = async () => {
         const result = await signInWithPopup(auth, provider);
         return result;
     } catch (error) {
-        return error;
+        throw error;
     }
 };
 
@@ -46,6 +46,6 @@ export const signOutUser = async () => {
     try {
         await auth.signOut();
     } catch (error) {
-        return error;
+        throw error;
     }
 };

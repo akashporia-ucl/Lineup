@@ -1,17 +1,32 @@
+/* Ensure no default margins or padding */
 body {
     margin: 0;
     padding: 0;
     font-family: "Arimo", sans-serif;
+    overflow: hidden; /* Disable default scroll on body */
+    transition: background-color 0.2s, color 0.2s;
 }
 
+/* Overall App Container */
+.App {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent default scroll */
+}
+
+/* Paper Styles */
 .App .welcome {
-    text-align: center;
-    height: calc(100vh - 20px);
-    width: calc(100vw - 20px);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 20px); /* Subtract margins from viewport height */
+    max-width: calc(100vw - 20px);
     padding: 10px;
     margin: 10px;
     border: 2px solid #000;
     box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden; /* Prevent internal overflow issues */
 }
 
 .App .lightPaper {
@@ -24,4 +39,56 @@ body {
     background-color: #000;
     color: #fff;
     border-color: #fff;
+}
+
+/* Navbar Styling */
+/* Navbar Styling */
+.navBar {
+    flex-shrink: 0; /* Prevent shrinking of the navbar */
+    position: sticky; /* Stick to the top while scrolling */
+    top: 0;
+    z-index: 10; /* Ensure it remains above other content */
+    height: 60px; /* Fixed height */
+    padding: 0 20px; /* Horizontal padding only */
+}
+
+/* Footer Styling */
+.footer {
+    flex-shrink: 0;
+    position: fixed; /* Fix footer to the bottom of the viewport */
+    bottom: 0;
+    width: 100%; /* Full width of the viewport */
+    z-index: 100; /* Ensure footer is above other elements */
+    padding: 0 20px; /* Horizontal padding only */
+}
+
+/* Scrollable Content Area */
+.content {
+    flex-grow: 1; /* Fills remaining space between navbar and footer */
+    overflow-y: auto; /* Enables internal scrolling */
+    padding: 10px; /* Add spacing inside the scrollable area */
+    margin-top: 10px; /* Add small space between navbar and content */
+    margin-bottom: 10px; /* Add small space between content and footer */
+    height: calc(
+        100vh - 120px - 20px
+    ); /* Account for navbar, footer, and paper margins */
+    box-sizing: border-box; /* Include padding and margins in size calculations */
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Background of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scrollbar thumb on hover */
 }

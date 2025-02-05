@@ -17,6 +17,13 @@ const Welcome = () => {
                 Welcome to Line
                 <span id="up">Up!</span>
             </Typography>
+            <hr
+                style={{
+                    margin: "20px 0",
+                    borderColor: theme === "light" ? "#5e17eb" : "#fff",
+                    borderWidth: "2px",
+                }}
+            />
             <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12} md={6}>
                     <Typography
